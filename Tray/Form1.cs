@@ -22,14 +22,22 @@ namespace Tray
         {
             switch (message.Msg)
             {
-                case (int)RawInput.User32.WM_INPUT:
+                case User32.WM_INPUT:
+                {
+                    if (_rawinput.ProcessRawInput(message.LParam, out var deviceId))
                     {
-                        _rawinput.ProcessRawInput(message.LParam);
+                        ProcessKeyboardPressed(deviceId);
                     }
-                    break;
+                }
+                break;
             }
 
             base.WndProc(ref message);
+        }
+
+        private void ProcessKeyboardPressed(int deviceId)
+        {
+            throw new NotImplementedException();
         }
 
         #region WinForms stuff

@@ -26,10 +26,12 @@ namespace RawInput
         }
 
         /// <summary>
-        /// 
+        /// Returns the device id from the RAWINPUT structure.
         /// </summary>
-        /// <param name="lParam"></param>
-        public void ProcessRawInput(IntPtr lParam)
+        /// <param name="lParam">A handle to the RAWINPUT structure. This comes from the lParam in WM_INPUT.</param>
+        /// <param name="deviceId">Id of the currently triggered device.</param>
+        /// <returns>True device id could be retrieved.</returns>
+        public bool ProcessRawInput(IntPtr lParam, out int deviceId)
         {
             uint rawInputDataSize = 0;
             _ = User32.GetRawInputData(lParam, Command.RID_INPUT, IntPtr.Zero, ref rawInputDataSize,
@@ -38,19 +40,13 @@ namespace RawInput
             RAWINPUT inputData = new();
             var dataSize = User32.GetRawInputData(lParam, Command.RID_INPUT, inputData, ref rawInputDataSize,
                 (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
-            if (rawInputDataSize != dataSize)
-            {
-                Debug.WriteLine("Error getting the RawInput buffer");
-                return;
-            }
-
-            var device = (int)inputData.header.hDevice;
-
-            if (inputData.data.keyboard.Message == User32.WM_KEYDOWN ||
-                inputData.data.keyboard.Message == User32.WM_SYSKEYDOWN)
-            {
-                Debug.WriteLine($"device {device}");
-            }
+            
+            deviceId = 0;
+            if (rawInputDataSize != dataSize) return false;
+            if (inputData.data.keyboard.Message is not (User32.WM_KEYDOWN or User32.WM_SYSKEYDOWN)) return false;
+            
+            deviceId = (int)inputData.header.hDevice;
+            return true;
         }
     }
 }

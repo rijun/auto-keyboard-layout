@@ -18,6 +18,7 @@ namespace RawInput
             [In, Out] ref uint pcbSize, uint cbSizeHeader);
 
         public const ushort WM_INPUT = 0x00FF;
+
         internal const uint WM_KEYDOWN = 0x0100;
         internal const uint WM_SYSKEYDOWN = 0x0104;
     }
