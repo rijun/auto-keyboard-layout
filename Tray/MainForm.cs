@@ -5,13 +5,13 @@ using RawInput;
 
 namespace Tray
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private readonly List<CultureInfo> _cultures;
 
         private readonly RawInput.RawInput _rawinput;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             _cultures = new List<CultureInfo>();
