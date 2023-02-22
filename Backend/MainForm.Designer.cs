@@ -34,6 +34,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.DeviceIdLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -90,18 +91,28 @@
             this.textBox2.Size = new System.Drawing.Size(198, 105);
             this.textBox2.TabIndex = 5;
             // 
-            // Form1
+            // DeviceIdLabel
+            // 
+            this.DeviceIdLabel.AutoSize = true;
+            this.DeviceIdLabel.Location = new System.Drawing.Point(12, 426);
+            this.DeviceIdLabel.Name = "DeviceIdLabel";
+            this.DeviceIdLabel.Size = new System.Drawing.Size(104, 15);
+            this.DeviceIdLabel.TabIndex = 6;
+            this.DeviceIdLabel.Text = "Press any button...";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DeviceIdLabel);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -116,5 +127,6 @@
         private Button button2;
         private Button button3;
         private TextBox textBox2;
+        private Label DeviceIdLabel;
     }
 }

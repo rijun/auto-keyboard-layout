@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
+using RawInput;
 
 namespace Backend;
 
 public class Backend
 {
     public List<CultureInfo> Cultures { get; }
-    private readonly RawInput.RawInput _rawinput;
 
     public Backend()
     {
@@ -16,8 +16,22 @@ public class Backend
         }
     }
 
+    public void RegisterRawInput(IntPtr windowHandle)
+    {
+        RawInput.RawInput.RegisterRawInput(windowHandle);
+    }
+
+    public bool HandleWmInputEvent(Message message)
+    {
+        if (!RawInput.RawInput.ProcessRawInput(message.LParam, out var deviceId)) return false;
+        ProcessKeyboardPressed(deviceId);
+        return true;
+    }
+
+    public int LastDeviceUsed { get; private set; } = 0;
+
     private void ProcessKeyboardPressed(int deviceId)
     {
-        throw new NotImplementedException();
+        LastDeviceUsed = deviceId;
     }
 }

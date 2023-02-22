@@ -10,6 +10,7 @@ namespace Backend
         public MainForm(Backend backend)
         {
             _backend = backend;
+            _backend.RegisterRawInput(Handle);
             FormClosing += MainWindow_FormClosing;
             InitializeComponent();
         }
@@ -20,20 +21,15 @@ namespace Backend
             {
                 case User32.WM_INPUT:
                 {
-                    /*if (_rawinput.ProcessRawInput(message.LParam, out var deviceId))
+                    if (_backend.HandleWmInputEvent(message))
                     {
-                        ProcessKeyboardPressed(deviceId);
-                    }*/
+                        DeviceIdLabel.Text = $@"Last device used: {_backend.LastDeviceUsed}";
+                    }
                 }
                 break;
             }
 
             base.WndProc(ref message);
-        }
-
-        private void ProcessKeyboardPressed(int deviceId)
-        {
-            throw new NotImplementedException();
         }
 
         #region WinForms stuff
@@ -53,8 +49,8 @@ namespace Backend
         private void button2_Click(object sender, EventArgs e)
         {
             // Gets the default, and current languages.
-            textBox2.Text = "Current input language is: " + InputLanguage.DefaultInputLanguage.Culture.EnglishName + '\n';
-            textBox2.Text += "Default input language is: " + InputLanguage.CurrentInputLanguage.Culture.EnglishName + '\n';
+            textBox2.Text = $@"Current input language is: {InputLanguage.DefaultInputLanguage.Culture.EnglishName}";
+            textBox2.Text += $@"Default input language is: {InputLanguage.CurrentInputLanguage.Culture.EnglishName}";
         }
         
         private void button3_Click(object sender, EventArgs e)

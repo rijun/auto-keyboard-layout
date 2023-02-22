@@ -3,14 +3,9 @@ using System.Diagnostics;
 
 namespace RawInput
 {
-    public class RawInput
+    public static class RawInput
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="windowHandle"></param>
-        /// <exception cref="ApplicationException"></exception>
-        public RawInput(IntPtr windowHandle)
+        public static void RegisterRawInput(IntPtr windowHandle)
         {
             var rid = new RAWINPUTDEVICE[1];
 
@@ -31,7 +26,7 @@ namespace RawInput
         /// <param name="lParam">A handle to the RAWINPUT structure. This comes from the lParam in WM_INPUT.</param>
         /// <param name="deviceId">Id of the currently triggered device.</param>
         /// <returns>True device id could be retrieved.</returns>
-        public bool ProcessRawInput(IntPtr lParam, out int deviceId)
+        public static bool ProcessRawInput(IntPtr lParam, out int deviceId)
         {
             uint rawInputDataSize = 0;
             _ = User32.GetRawInputData(lParam, Command.RID_INPUT, IntPtr.Zero, ref rawInputDataSize,
