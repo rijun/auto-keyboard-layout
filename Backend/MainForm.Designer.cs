@@ -31,11 +31,11 @@
             this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.LastDeviceIdLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.DeviceListBox = new System.Windows.Forms.ListBox();
-            this.MappingsListView = new System.Windows.Forms.ListView();
             this.LayoutListBox = new System.Windows.Forms.ListBox();
             this.AddMappingButton = new System.Windows.Forms.Button();
             this.DeleteMappingButton = new System.Windows.Forms.Button();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.MappingsListBox = new System.Windows.Forms.ListBox();
             this.StatusStrip.SuspendLayout();
             this.MainLayout.SuspendLayout();
             this.SuspendLayout();
@@ -63,18 +63,8 @@
             this.DeviceListBox.ItemHeight = 15;
             this.DeviceListBox.Location = new System.Drawing.Point(3, 3);
             this.DeviceListBox.Name = "DeviceListBox";
-            this.DeviceListBox.Size = new System.Drawing.Size(156, 129);
+            this.DeviceListBox.Size = new System.Drawing.Size(156, 150);
             this.DeviceListBox.TabIndex = 8;
-            // 
-            // MappingsListView
-            // 
-            this.MainLayout.SetColumnSpan(this.MappingsListView, 2);
-            this.MappingsListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MappingsListView.Location = new System.Drawing.Point(3, 164);
-            this.MappingsListView.Name = "MappingsListView";
-            this.MappingsListView.Size = new System.Drawing.Size(319, 199);
-            this.MappingsListView.TabIndex = 9;
-            this.MappingsListView.UseCompatibleStateImageBehavior = false;
             // 
             // LayoutListBox
             // 
@@ -83,15 +73,15 @@
             this.LayoutListBox.ItemHeight = 15;
             this.LayoutListBox.Location = new System.Drawing.Point(165, 3);
             this.LayoutListBox.Name = "LayoutListBox";
-            this.LayoutListBox.Size = new System.Drawing.Size(157, 129);
+            this.LayoutListBox.Size = new System.Drawing.Size(157, 150);
             this.LayoutListBox.TabIndex = 10;
             // 
             // AddMappingButton
             // 
             this.AddMappingButton.AutoSize = true;
-            this.AddMappingButton.Location = new System.Drawing.Point(3, 138);
+            this.AddMappingButton.Location = new System.Drawing.Point(3, 159);
             this.AddMappingButton.Name = "AddMappingButton";
-            this.AddMappingButton.Size = new System.Drawing.Size(129, 20);
+            this.AddMappingButton.Size = new System.Drawing.Size(129, 25);
             this.AddMappingButton.TabIndex = 11;
             this.AddMappingButton.Text = "Add Layout Mapping";
             this.AddMappingButton.UseVisualStyleBackColor = true;
@@ -100,9 +90,9 @@
             // DeleteMappingButton
             // 
             this.DeleteMappingButton.AutoSize = true;
-            this.DeleteMappingButton.Location = new System.Drawing.Point(165, 138);
+            this.DeleteMappingButton.Location = new System.Drawing.Point(165, 159);
             this.DeleteMappingButton.Name = "DeleteMappingButton";
-            this.DeleteMappingButton.Size = new System.Drawing.Size(140, 20);
+            this.DeleteMappingButton.Size = new System.Drawing.Size(140, 25);
             this.DeleteMappingButton.TabIndex = 12;
             this.DeleteMappingButton.Text = "Delete Layout Mapping";
             this.DeleteMappingButton.UseVisualStyleBackColor = true;
@@ -114,19 +104,30 @@
             this.MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.MainLayout.Controls.Add(this.DeviceListBox, 0, 0);
-            this.MainLayout.Controls.Add(this.MappingsListView, 0, 2);
             this.MainLayout.Controls.Add(this.DeleteMappingButton, 1, 1);
             this.MainLayout.Controls.Add(this.LayoutListBox, 1, 0);
             this.MainLayout.Controls.Add(this.AddMappingButton, 0, 1);
+            this.MainLayout.Controls.Add(this.MappingsListBox, 0, 2);
             this.MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainLayout.Location = new System.Drawing.Point(0, 0);
             this.MainLayout.Name = "MainLayout";
             this.MainLayout.RowCount = 3;
             this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.48624F));
             this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.51376F));
-            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 178F));
             this.MainLayout.Size = new System.Drawing.Size(325, 366);
             this.MainLayout.TabIndex = 13;
+            // 
+            // MappingsListBox
+            // 
+            this.MainLayout.SetColumnSpan(this.MappingsListBox, 2);
+            this.MappingsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MappingsListBox.FormattingEnabled = true;
+            this.MappingsListBox.ItemHeight = 15;
+            this.MappingsListBox.Location = new System.Drawing.Point(3, 190);
+            this.MappingsListBox.Name = "MappingsListBox";
+            this.MappingsListBox.Size = new System.Drawing.Size(319, 173);
+            this.MappingsListBox.TabIndex = 13;
             // 
             // MainForm
             // 
@@ -150,10 +151,10 @@
         private StatusStrip StatusStrip;
         private ToolStripStatusLabel LastDeviceIdLabel;
         private ListBox DeviceListBox;
-        private ListView MappingsListView;
         private TableLayoutPanel MainLayout;
         private Button DeleteMappingButton;
         private ListBox LayoutListBox;
         private Button AddMappingButton;
+        private ListBox MappingsListBox;
     }
 }

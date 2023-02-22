@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using RawInput;
 
 namespace Backend;
 
@@ -7,6 +6,7 @@ public class Backend
 {
     public List<CultureInfo> Cultures { get; }
     public List<int> Devices { get; }
+    private Dictionary<int, CultureInfo> _mappings;
 
     public Backend()
     {
@@ -16,6 +16,7 @@ public class Backend
             Cultures.Add(lang.Culture);
         }
         Devices = new List<int>();
+        _mappings = new Dictionary<int, CultureInfo>();
     }
 
     public void RegisterRawInput(IntPtr windowHandle)
@@ -23,7 +24,7 @@ public class Backend
         RawInput.RawInput.RegisterRawInput(windowHandle);
     }
 
-    public event EventHandler NewDeviceFound;
+    public event EventHandler? NewDeviceFound;
     
     public bool HandleWmInputEvent(Message message)
     {
@@ -31,16 +32,30 @@ public class Backend
         if (!Devices.Contains(deviceId))
         {
             Devices.Add(deviceId);
-            NewDeviceFound(this, EventArgs.Empty);
+            NewDeviceFound?.Invoke(this, EventArgs.Empty);
         }
         ProcessKeyboardPressed(deviceId);
         return true;
     }
 
-    public int LastDeviceUsed { get; private set; } = 0;
-
+    public void AddLayoutMapping(int deviceId, int cultureListIndex)
+    {
+        _mappings.Add(deviceId, Cultures[cultureListIndex]);
+    }
+    
+    public void RemoveLayoutMapping(int deviceId)
+    {
+        _mappings.Remove(deviceId);
+    }
+    
+    public int LastDeviceUsed { get; private set; }
+    
     private void ProcessKeyboardPressed(int deviceId)
     {
         LastDeviceUsed = deviceId;
+        if (_mappings.TryGetValue(deviceId, out var culture))
+        {
+            InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(culture);
+        }
     }
 }
