@@ -1,15 +1,16 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 
-namespace Tray
+namespace Backend
 {
     internal class CustomApplicationContext : ApplicationContext
     {
         private const string IconFileName = "../../../assets/icon.ico";
-        private const string DefaultTooltip = "Route HOST entries via context menu";
+        private const string DefaultTooltip = "AutoKeyboardLayout";
 
         private readonly IContainer? _components;
         private readonly NotifyIcon _notifyIcon;
+        private readonly Backend _backend;
+        private readonly MainForm _mainForm;
 
         public CustomApplicationContext()
         {
@@ -23,39 +24,39 @@ namespace Tray
                 Visible = true
             };
 
+            // Add call to terminate the ApplicationContext when selecting the exit option
             _notifyIcon.ContextMenuStrip.Items.Add("&Exit", null, (_, _) => ExitThread());
-
             _notifyIcon.DoubleClick += (_, _) => ShowMainForm();
+
+            _backend = new Backend();
+            _mainForm =  new MainForm(_backend);
         }
 
-        private MainForm? _mainForm;
-        
         private void ShowMainForm()
         {
-            if (_mainForm == null)
-            {
-                _mainForm = new MainForm();
-                _mainForm.Closed += (_, _) => _mainForm = null;
-                _mainForm.Show();
-            }
-            else
-            {
-                _mainForm.Activate();
-            }
+            if (!_mainForm.Visible) { _mainForm.Show(); }
         }
 
+        #region Generic code framework
+
+        /// <summary>
+        /// When the application context is disposed, dispose things like the notify icon.
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
-            Debug.WriteLine("Firing dispose");
             if (disposing && _components != null) { _components.Dispose(); }
         }
 
+        /// <summary>
+        /// If a form is showing, clean it up.
+        /// </summary>
         protected override void ExitThreadCore()
         {
-            Debug.WriteLine("Firing ExitThreadCore");
-            // if (mainForm != null) { MainWindow.Close(); }
-            _notifyIcon.Visible = false; // should remove lingering tray icon!
+            _mainForm.Close(); // Clean up form
+            _notifyIcon.Visible = false; // Remove lingering tray icon
             base.ExitThreadCore();
         }
+        
+        #endregion
     }
 }

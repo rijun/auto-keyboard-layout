@@ -1,21 +1,17 @@
-using System.Globalization;
-using System.Numerics;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 using RawInput;
 
-namespace Tray
+namespace Backend
 {
     public partial class MainForm : Form
     {
-        private readonly List<CultureInfo> _cultures;
+        private readonly Backend _backend;
 
-        private readonly RawInput.RawInput _rawinput;
-
-        public MainForm()
+        public MainForm(Backend backend)
         {
+            _backend = backend;
+            FormClosing += MainWindow_FormClosing;
             InitializeComponent();
-            _cultures = new List<CultureInfo>();
-            _rawinput = new RawInput.RawInput(Handle);
         }
 
         protected override void WndProc(ref Message message)
@@ -24,10 +20,10 @@ namespace Tray
             {
                 case User32.WM_INPUT:
                 {
-                    if (_rawinput.ProcessRawInput(message.LParam, out var deviceId))
+                    /*if (_rawinput.ProcessRawInput(message.LParam, out var deviceId))
                     {
                         ProcessKeyboardPressed(deviceId);
-                    }
+                    }*/
                 }
                 break;
             }
@@ -45,14 +41,12 @@ namespace Tray
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            _cultures.Clear();
             comboBox1.Items.Clear();
             // Gets the list of installed languages.
-            foreach (InputLanguage lang in InputLanguage.InstalledInputLanguages)
+            foreach (var culture in _backend.Cultures)
             {
-                textBox1.Text += lang.Culture.EnglishName + '\n';
-                _cultures.Add(lang.Culture);
-                comboBox1.Items.Add(lang.Culture.EnglishName);
+                textBox1.Text += culture.EnglishName + '\n';
+                comboBox1.Items.Add(culture.EnglishName);
             }
         }
 
@@ -66,7 +60,18 @@ namespace Tray
         private void button3_Click(object sender, EventArgs e)
         {
             // Changes the current input language to the default, and prints the new current language.
-            InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(_cultures[comboBox1.SelectedIndex]);
+            // InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(_cultures[comboBox1.SelectedIndex]);
+        }
+        
+        /// <summary>
+        /// Event handler for the FormClosing event.
+        /// If the user closes the window through the UI, hide the window instead of closing it.
+        /// </summary>
+        private void MainWindow_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing) return;
+            e.Cancel = true;
+            Hide();
         }
 
         #endregion
