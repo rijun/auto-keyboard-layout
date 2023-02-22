@@ -28,105 +28,132 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.DeviceIdLabel = new System.Windows.Forms.Label();
+            this.StatusStrip = new System.Windows.Forms.StatusStrip();
+            this.LastDeviceIdLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.DeviceListBox = new System.Windows.Forms.ListBox();
+            this.MappingsListView = new System.Windows.Forms.ListView();
+            this.LayoutListBox = new System.Windows.Forms.ListBox();
+            this.AddMappingButton = new System.Windows.Forms.Button();
+            this.DeleteMappingButton = new System.Windows.Forms.Button();
+            this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.StatusStrip.SuspendLayout();
+            this.MainLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // StatusStrip
             // 
-            this.button1.Location = new System.Drawing.Point(214, 140);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LastDeviceIdLabel});
+            this.StatusStrip.Location = new System.Drawing.Point(0, 366);
+            this.StatusStrip.Name = "StatusStrip";
+            this.StatusStrip.Size = new System.Drawing.Size(325, 22);
+            this.StatusStrip.TabIndex = 7;
+            this.StatusStrip.Text = "statusStrip1";
             // 
-            // textBox1
+            // LastDeviceIdLabel
             // 
-            this.textBox1.Location = new System.Drawing.Point(115, 188);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 103);
-            this.textBox1.TabIndex = 1;
+            this.LastDeviceIdLabel.Name = "LastDeviceIdLabel";
+            this.LastDeviceIdLabel.Size = new System.Drawing.Size(104, 17);
+            this.LastDeviceIdLabel.Text = "Press any button...";
             // 
-            // comboBox1
+            // DeviceListBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(565, 209);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 2;
+            this.DeviceListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceListBox.FormattingEnabled = true;
+            this.DeviceListBox.ItemHeight = 15;
+            this.DeviceListBox.Location = new System.Drawing.Point(3, 3);
+            this.DeviceListBox.Name = "DeviceListBox";
+            this.DeviceListBox.Size = new System.Drawing.Size(156, 129);
+            this.DeviceListBox.TabIndex = 8;
             // 
-            // button2
+            // MappingsListView
             // 
-            this.button2.Location = new System.Drawing.Point(336, 140);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.MainLayout.SetColumnSpan(this.MappingsListView, 2);
+            this.MappingsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MappingsListView.Location = new System.Drawing.Point(3, 164);
+            this.MappingsListView.Name = "MappingsListView";
+            this.MappingsListView.Size = new System.Drawing.Size(319, 199);
+            this.MappingsListView.TabIndex = 9;
+            this.MappingsListView.UseCompatibleStateImageBehavior = false;
             // 
-            // button3
+            // LayoutListBox
             // 
-            this.button3.Location = new System.Drawing.Point(622, 140);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.LayoutListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LayoutListBox.FormattingEnabled = true;
+            this.LayoutListBox.ItemHeight = 15;
+            this.LayoutListBox.Location = new System.Drawing.Point(165, 3);
+            this.LayoutListBox.Name = "LayoutListBox";
+            this.LayoutListBox.Size = new System.Drawing.Size(157, 129);
+            this.LayoutListBox.TabIndex = 10;
             // 
-            // textBox2
+            // AddMappingButton
             // 
-            this.textBox2.Location = new System.Drawing.Point(337, 186);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(198, 105);
-            this.textBox2.TabIndex = 5;
+            this.AddMappingButton.AutoSize = true;
+            this.AddMappingButton.Location = new System.Drawing.Point(3, 138);
+            this.AddMappingButton.Name = "AddMappingButton";
+            this.AddMappingButton.Size = new System.Drawing.Size(129, 20);
+            this.AddMappingButton.TabIndex = 11;
+            this.AddMappingButton.Text = "Add Layout Mapping";
+            this.AddMappingButton.UseVisualStyleBackColor = true;
+            this.AddMappingButton.Click += new System.EventHandler(this.AddMappingButton_Click);
             // 
-            // DeviceIdLabel
+            // DeleteMappingButton
             // 
-            this.DeviceIdLabel.AutoSize = true;
-            this.DeviceIdLabel.Location = new System.Drawing.Point(12, 426);
-            this.DeviceIdLabel.Name = "DeviceIdLabel";
-            this.DeviceIdLabel.Size = new System.Drawing.Size(104, 15);
-            this.DeviceIdLabel.TabIndex = 6;
-            this.DeviceIdLabel.Text = "Press any button...";
+            this.DeleteMappingButton.AutoSize = true;
+            this.DeleteMappingButton.Location = new System.Drawing.Point(165, 138);
+            this.DeleteMappingButton.Name = "DeleteMappingButton";
+            this.DeleteMappingButton.Size = new System.Drawing.Size(140, 20);
+            this.DeleteMappingButton.TabIndex = 12;
+            this.DeleteMappingButton.Text = "Delete Layout Mapping";
+            this.DeleteMappingButton.UseVisualStyleBackColor = true;
+            this.DeleteMappingButton.Click += new System.EventHandler(this.DeleteMappingButton_Click);
+            // 
+            // MainLayout
+            // 
+            this.MainLayout.ColumnCount = 2;
+            this.MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MainLayout.Controls.Add(this.DeviceListBox, 0, 0);
+            this.MainLayout.Controls.Add(this.MappingsListView, 0, 2);
+            this.MainLayout.Controls.Add(this.DeleteMappingButton, 1, 1);
+            this.MainLayout.Controls.Add(this.LayoutListBox, 1, 0);
+            this.MainLayout.Controls.Add(this.AddMappingButton, 0, 1);
+            this.MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.MainLayout.Name = "MainLayout";
+            this.MainLayout.RowCount = 3;
+            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.48624F));
+            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.51376F));
+            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 204F));
+            this.MainLayout.Size = new System.Drawing.Size(325, 366);
+            this.MainLayout.TabIndex = 13;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.DeviceIdLabel);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(325, 388);
+            this.Controls.Add(this.MainLayout);
+            this.Controls.Add(this.StatusStrip);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.StatusStrip.ResumeLayout(false);
+            this.StatusStrip.PerformLayout();
+            this.MainLayout.ResumeLayout(false);
+            this.MainLayout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private Button button1;
-        private TextBox textBox1;
-        private ComboBox comboBox1;
-        private Button button2;
-        private Button button3;
-        private TextBox textBox2;
-        private Label DeviceIdLabel;
+        private StatusStrip StatusStrip;
+        private ToolStripStatusLabel LastDeviceIdLabel;
+        private ListBox DeviceListBox;
+        private ListView MappingsListView;
+        private TableLayoutPanel MainLayout;
+        private Button DeleteMappingButton;
+        private ListBox LayoutListBox;
+        private Button AddMappingButton;
     }
 }

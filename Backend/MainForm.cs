@@ -9,10 +9,34 @@ namespace Backend
 
         public MainForm(Backend backend)
         {
+            InitializeComponent();
             _backend = backend;
             _backend.RegisterRawInput(Handle);
+            PopulateLayoutListBox();
+            _backend.NewDeviceFound += PopulateDeviceListBox;
             FormClosing += MainWindow_FormClosing;
-            InitializeComponent();
+        }
+
+        private void PopulateLayoutListBox()
+        {
+            LayoutListBox.BeginUpdate();
+            foreach (var culture in _backend.Cultures)
+            {
+                LayoutListBox.Items.Add(culture.EnglishName);
+            }
+
+            LayoutListBox.EndUpdate();
+        }
+
+        private void PopulateDeviceListBox(object? sender, EventArgs e)
+        {
+            DeviceListBox.BeginUpdate();
+            DeviceListBox.Items.Clear();
+            foreach (var device in _backend.Devices)
+            {
+                DeviceListBox.Items.Add(device);
+            }
+            DeviceListBox.EndUpdate();
         }
 
         protected override void WndProc(ref Message message)
@@ -23,7 +47,7 @@ namespace Backend
                 {
                     if (_backend.HandleWmInputEvent(message))
                     {
-                        DeviceIdLabel.Text = $@"Last device used: {_backend.LastDeviceUsed}";
+                        LastDeviceIdLabel.Text = $@"Last device used: {_backend.LastDeviceUsed}";
                     }
                 }
                 break;
@@ -33,31 +57,6 @@ namespace Backend
         }
 
         #region WinForms stuff
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            textBox1.Text = "";
-            comboBox1.Items.Clear();
-            // Gets the list of installed languages.
-            foreach (var culture in _backend.Cultures)
-            {
-                textBox1.Text += culture.EnglishName + '\n';
-                comboBox1.Items.Add(culture.EnglishName);
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // Gets the default, and current languages.
-            textBox2.Text = $@"Current input language is: {InputLanguage.DefaultInputLanguage.Culture.EnglishName}";
-            textBox2.Text += $@"Default input language is: {InputLanguage.CurrentInputLanguage.Culture.EnglishName}";
-        }
-        
-        private void button3_Click(object sender, EventArgs e)
-        {
-            // Changes the current input language to the default, and prints the new current language.
-            // InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(_cultures[comboBox1.SelectedIndex]);
-        }
         
         /// <summary>
         /// Event handler for the FormClosing event.
@@ -71,5 +70,15 @@ namespace Backend
         }
 
         #endregion
+
+        private void AddMappingButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteMappingButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

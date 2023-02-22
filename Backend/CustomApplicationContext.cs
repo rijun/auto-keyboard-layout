@@ -34,7 +34,8 @@ namespace Backend
 
         private void ShowMainForm()
         {
-            if (!_mainForm.Visible) { _mainForm.Show(); }
+            _mainForm.Show();
+            _mainForm.Activate();
         }
 
         #region Generic code framework
