@@ -1,4 +1,4 @@
-namespace Backend;
+namespace TrayApplication;
 
 internal static class Program
 {

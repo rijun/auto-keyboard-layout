@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 
-namespace Backend;
+namespace TrayApplication;
 
 internal class CustomApplicationContext : ApplicationContext
 {
-    private const string IconFileName = "../../../assets/icon.ico";
+    private const string IconFileName = "../../../Resources/TrayIcon.ico";
     private const string DefaultTooltip = "AutoKeyboardLayout";
 
     private readonly IContainer? _components;

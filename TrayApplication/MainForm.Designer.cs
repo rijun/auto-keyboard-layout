@@ -1,4 +1,4 @@
-﻿namespace Backend
+﻿namespace TrayApplication
 {
     partial class MainForm
     {

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Backend;
+namespace TrayApplication;
 
 public partial class MainForm : Form
 {
@@ -10,10 +10,15 @@ public partial class MainForm : Form
     {
         InitializeComponent();
         _backend = backend;
-        _backend.RegisterRawInput(Handle);
         PopulateLayoutListBox();
+        _backend.KeyboardPressed += UpdateLastDeviceLabel;
         _backend.NewDeviceFound += PopulateDeviceListBox;
         FormClosing += MainWindow_FormClosing;
+    }
+
+    private void UpdateLastDeviceLabel(object? sender, Backend.KeyboardEventArgs e)
+    {
+        LastDeviceIdLabel.Text = $@"Last device: {e.DeviceId}";
     }
 
     private void PopulateLayoutListBox()
@@ -37,24 +42,7 @@ public partial class MainForm : Form
         }
         DeviceListBox.EndUpdate();
     }
-
-    protected override void WndProc(ref Message message)
-    {
-        switch (message.Msg)
-        {
-            case RawInput.User32.WM_INPUT:
-            {
-                if (_backend.HandleWmInputEvent(message))
-                {
-                    LastDeviceIdLabel.Text = $@"Last device used: {_backend.LastDeviceUsed}";
-                }
-            }
-            break;
-        }
-
-        base.WndProc(ref message);
-    }
-
+    
     #region WinForms stuff
     
     /// <summary>
