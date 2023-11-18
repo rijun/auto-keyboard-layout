@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RawInput\RawInput.csproj" />
+    <ProjectReference Include="..\UserInterface\UserInterface.csproj" />
   </ItemGroup>
 
   <ItemGroup>

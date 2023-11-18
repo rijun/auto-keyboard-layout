@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using UserInterface;
 
 namespace TrayApplication;
 
@@ -9,14 +10,18 @@ internal class CustomApplicationContext : ApplicationContext
 
     private readonly IContainer? _components;
     private readonly NotifyIcon _notifyIcon;
-    private readonly Backend _backend;
-    private readonly MainForm _mainForm;
+    private Backend _backend;
+    private MainWindow _ui;
+
+    // private readonly MainWindow _userInterface;
 
     public CustomApplicationContext()
     {
+        _backend = new();
+
         // Create new notify icon
         _components = new Container();
-        _notifyIcon = new NotifyIcon(_components)
+        _notifyIcon = new(_components)
         {
             ContextMenuStrip = new ContextMenuStrip(),
             Icon = new Icon(IconFileName),
@@ -28,14 +33,17 @@ internal class CustomApplicationContext : ApplicationContext
         _notifyIcon.ContextMenuStrip.Items.Add("&Exit", null, (_, _) => ExitThread());
         _notifyIcon.DoubleClick += (_, _) => ShowMainForm();
 
-        _backend = new Backend();
-        _mainForm =  new MainForm(_backend);
+        _ui= new MainWindow();
+        _ui.Show();
+
+        _backend.NewDeviceFound += _ui.thresholdReached;
     }
 
     private void ShowMainForm()
     {
-        _mainForm.Show();
-        _mainForm.Activate();
+        // _mainForm.Show();
+        // _mainForm.Activate();
+        // _userInterface.Show();
     }
 
     #region Generic code framework
@@ -53,7 +61,8 @@ internal class CustomApplicationContext : ApplicationContext
     /// </summary>
     protected override void ExitThreadCore()
     {
-        _mainForm.Close(); // Clean up form
+        // _mainForm.Close(); // Clean up form
+        // _userInterface.Close();
         _notifyIcon.Visible = false; // Remove lingering tray icon
         base.ExitThreadCore();
     }

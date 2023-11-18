@@ -4,23 +4,35 @@ namespace TrayApplication;
 
 public class Backend : Form
 {
-    public List<CultureInfo> Cultures { get; }
-    public List<int> Devices { get; }
+    /// <summary>
+    /// Dictionary holding the mappings between input devices and languages.
+    /// </summary>
     private readonly Dictionary<int, CultureInfo> _mappings;
 
     public Backend()
     {
-        Cultures = new List<CultureInfo>();
+        _mappings = new();
+        Cultures = new();
+        Devices = new();
+
         foreach (InputLanguage lang in InputLanguage.InstalledInputLanguages)
         {
             Cultures.Add(lang.Culture);
         }
 
-        Devices = new List<int>();
-        _mappings = new Dictionary<int, CultureInfo>();
-        RegisterRawInput();
+        RawInput.RawInput.RegisterRawInput(Handle);
     }
 
+    internal event EventHandler? NewDeviceFound;
+    internal event EventHandler<KeyboardEventArgs>? KeyboardPressed;
+
+    public List<CultureInfo> Cultures { get; }
+    public List<int> Devices { get; }
+
+    /// <summary>
+    /// Inject HandleWmInputEvent into the WndProc method.
+    /// </summary>
+    /// <param name="message"></param>
     protected override void WndProc(ref Message message)
     {
         switch (message.Msg)
@@ -34,13 +46,6 @@ public class Backend : Form
 
         base.WndProc(ref message);
     }
-    
-    private void RegisterRawInput()
-    {
-        RawInput.RawInput.RegisterRawInput(Handle);
-    }
-    
-    public event EventHandler? NewDeviceFound;
 
     private bool HandleWmInputEvent(Message message)
     {
@@ -50,25 +55,16 @@ public class Backend : Form
             Devices.Add(deviceId);
             NewDeviceFound?.Invoke(this, EventArgs.Empty);
         }
-        ProcessKeyboardPressed(deviceId);
+        // ProcessKeyboardPressed(deviceId);
         return true;
     }
 
-    internal class KeyboardEventArgs : EventArgs
-    {
-        public int DeviceId { get; set; }
-    }
-
-    internal event EventHandler<KeyboardEventArgs>? KeyboardPressed;
-
     private void ProcessKeyboardPressed(int deviceId)
     {
-        var keyboardEvent = new KeyboardEventArgs
-        {
-            DeviceId = deviceId
-        };
-        KeyboardPressed?.Invoke(this, keyboardEvent);
-        if (_mappings.TryGetValue(deviceId, out var culture))
+        // KeyboardPressed?.Invoke(this, new KeyboardEventArgs { DeviceId = deviceId });
+
+        // Set current input language to language mapped to the input device
+        if (_mappings.TryGetValue(deviceId, out CultureInfo? culture))
         {
             InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(culture);
         }
@@ -82,5 +78,10 @@ public class Backend : Form
     public void RemoveLayoutMapping(int deviceId)
     {
         _mappings.Remove(deviceId);
+    }
+
+    internal class KeyboardEventArgs : EventArgs
+    {
+        public int DeviceId { get; set; }
     }
 }
