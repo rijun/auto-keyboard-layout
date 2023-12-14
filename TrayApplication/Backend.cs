@@ -23,7 +23,7 @@ public class Backend : Form
         RawInput.RawInput.RegisterRawInput(Handle);
     }
 
-    internal event EventHandler? NewDeviceFound;
+    internal event EventHandler<int> NewDeviceFound;
     internal event EventHandler<KeyboardEventArgs>? KeyboardPressed;
 
     public List<CultureInfo> Cultures { get; }
@@ -53,7 +53,7 @@ public class Backend : Form
         if (!Devices.Contains(deviceId))
         {
             Devices.Add(deviceId);
-            NewDeviceFound?.Invoke(this, EventArgs.Empty);
+            NewDeviceFound.Invoke(this, deviceId);
         }
         // ProcessKeyboardPressed(deviceId);
         return true;

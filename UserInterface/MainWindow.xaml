@@ -20,7 +20,8 @@
         </Grid.RowDefinitions>
         <ListBox x:Name="DeviceIdListBox" Grid.Row="0" Grid.ColumnSpan="2"/>
         <ListBox x:Name="KeyboardLayoutListBox" Grid.Row="1" Grid.ColumnSpan="2"/>
-        <Button x:Name="AddMappingButton" Content="Add Layout" Grid.Row="2" Grid.Column="0"/>
+        <Button x:Name="AddMappingButton" Content="Add Layout" Grid.Row="2" Grid.Column="0"
+                Click="AddMappingButton_OnClick" />
         <Button x:Name="DeleteMappingButton" Content="Delete Layout" Grid.Row="2" Grid.Column="1"/>
         <ListBox x:Name="MappingsListBox" Grid.Row="3" Grid.ColumnSpan="2"/>
         <StatusBar Grid.Row="4" Grid.ColumnSpan="2">

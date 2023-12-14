@@ -11,17 +11,21 @@ namespace UserInterface;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public EventHandler thresholdReached;
-
+    public class MappingEventArgs : EventArgs
+    {
+        
+    }
+    public event EventHandler<MappingEventArgs> NewMappingAdded;
+        
     public MainWindow()
     {
         InitializeComponent();
-
-
-        thresholdReached = () => { System.Console.WriteLine($"Notification received for"); };
     }
 
-    public delegate void ThresholdReachedEventHandler(object sender);
+    public void UpdateDeviceIdListBox(object? sender, int deviceId)
+    {
+        DeviceIdListBox.Items.Add(deviceId);
+    }
 
     public void UpdateKeyboardLayoutListBox(List<CultureInfo> cultures)
     {
@@ -30,5 +34,9 @@ public partial class MainWindow : Window
         {
             KeyboardLayoutListBox.Items.Add(culture.EnglishName);
         }
+    }
+
+    private void AddMappingButton_OnClick(object sender, RoutedEventArgs e)
+    {
     }
 }

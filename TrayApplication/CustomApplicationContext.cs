@@ -34,11 +34,12 @@ internal class CustomApplicationContext : ApplicationContext
         _notifyIcon.DoubleClick += (_, _) => ShowMainForm();
 
         _ui= new MainWindow();
+        _ui.UpdateKeyboardLayoutListBox(_backend.Cultures);
         _ui.Show();
-
-        _backend.NewDeviceFound += _ui.thresholdReached;
+        
+        _backend.NewDeviceFound += _ui.UpdateDeviceIdListBox;
     }
-
+    
     private void ShowMainForm()
     {
         // _mainForm.Show();
